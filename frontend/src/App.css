@@ -1,0 +1,27 @@
+/* CSS */
+.cardContainer {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  margin-bottom: 20px;
+}
+
+
+.cardTitle {
+  color: #333;
+  font-size: 18px;
+}
+
+.cardDescription {
+  color: #555;
+  font-size: 14px;
+}
+
+/* CSS */
+.cardImage {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
