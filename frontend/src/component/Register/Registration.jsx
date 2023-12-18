@@ -1,11 +1,11 @@
+import React from 'react';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
-import { Button, Form, Input, LoginLink, RegisterContainer, Title } from './RegisterStyled'; // Assuming your custom styled components are imported correctly
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { ErrorText } from '../Login/LoginStyled';
+import { Button, Form, Input, LoginLink, RegisterContainer, Title } from './RegisterStyled';
 
 function Registration() {
   const formik = useFormik({

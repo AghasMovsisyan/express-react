@@ -1,7 +1,7 @@
 
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-// Styled components from your Login component
+import { Link } from 'react-router-dom';
+
 export const RegisterContainer = styled.div`
   display: flex;
   justify-content: center;

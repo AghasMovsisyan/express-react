@@ -1,26 +1,13 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-
-export const Navigation = styled.nav`
-  background: #333;
-  color: #fff;
-  padding: 10px;
+export const Li = styled.li`
+  margin-right: 10px;
 `;
-
 export const Ul = styled.ul`
   list-style: none;
   display: flex;
   justify-content: left;
-`;
-
-export const Li = styled.li`
-  margin-right: 10px;
-`;
-
-export const StyledLink = styled(Link)`
-  color: #fff;
-  text-decoration: none;
 `;
 
 export const ProfileSection = styled.div`
@@ -35,43 +22,6 @@ export const LogoImage = styled.img`
   height: 30px; /* Adjust height as needed */
   margin-right: 5px; /* Add margin for spacing */
   /* Add more styles if required */
-`;
-
-export const CardForm = styled.form`
-  margin-top: 20px;
-  padding: 20px;
-  border-radius: 5px;
-
-  h3 {
-    margin-bottom: 10px;
-  }
-
-  label {
-    display: block;
-    margin-bottom: 5px;
-  }
-
-  input,
-  textarea {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-  }
-
-  button {
-    padding: 8px 16px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-  }
-
-  button:hover {
-    background-color: #0056b3;
-  }
 `;
 
 export const TabButton = styled(Link)`
@@ -90,5 +40,4 @@ export const TabButton = styled(Link)`
 export const Tabs = styled.div`
 margin-top: 30px;
 margin-left: -10px
-
 `;

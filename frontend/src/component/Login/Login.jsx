@@ -35,7 +35,6 @@ onSubmit: async (values, { setSubmitting, setErrors }) => {
     }
   } catch (error) {
     console.error('Error:', error);
-    // Set a general error message in case of network or server issues
     setErrors({ password: 'Invalid email or password' });
   } finally {
     setSubmitting(false);

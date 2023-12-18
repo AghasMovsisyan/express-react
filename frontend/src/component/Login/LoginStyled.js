@@ -10,7 +10,6 @@ export const LoginContainer = styled.div`
   flex-direction: column;
 `;
 
-
 export const Title = styled.h2`
   color: #333;
   margin-bottom: 30px;
