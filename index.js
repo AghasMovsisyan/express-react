@@ -1,6 +1,9 @@
 import express from "express";
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
+import multer from "multer";
+import path from "path";
+
 
 const app = express();
 app.use(express.json());
@@ -32,6 +35,7 @@ const userSchema = new mongoose.Schema({
 const cardSchema = new mongoose.Schema({
   title: String,
   description: String,
+  size: String,
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
@@ -40,13 +44,24 @@ const cardSchema = new mongoose.Schema({
 });
 
 const Card = mongoose.model('Card', cardSchema);
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, './frontend/src/component/UserPage/UserCards/images');
+  },
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname);
+    cb(null, `${file.fieldname}-${Date.now()}${ext}`);
+  },
+});
 
-app.post('/create-card', async (req, res) => {
-  const { title, description, userId } = req.body;
-  const image = req.body.image;
+const upload = multer({ storage });
+
+app.post('/create-card', upload.single('image'), async (req, res) => {
+  const { title, description, size , userId } = req.body;
+  const imagePath = req.file.path;
 
   try {
-    const newCard = new Card({ title, description, userId, image });
+    const newCard = new Card({ title, description, userId, size, image: imagePath });
     await newCard.save();
 
     res.status(201).json({ message: 'Card created successfully' });
@@ -64,7 +79,15 @@ app.get('/user-cards/:userId', async (req, res) => {
     const cards = await Card.find({ userId });
     console.log('Fetched cards:', cards);
 
-    res.status(200).json({ cards });
+    const cardsWithImages = cards.map(card => ({
+      _id: card._id,
+      title: card.title,
+      description: card.description,
+      size: card.size,
+      image: `http://localhost:5000/${card.image}`
+    }));
+
+    res.status(200).json({ cards: cardsWithImages })
   } catch (error) {
     console.error('Error fetching user cards:', error);
     res.status(500).json({ message: 'Failed to fetch user cards' });
@@ -117,6 +140,8 @@ app.post('/login', async (req, res) => {
     res.status(500).json({ message: 'Login failed' });
   }
 });
+
+
 
 const PORT = 5000;
 app.listen(PORT, () => {

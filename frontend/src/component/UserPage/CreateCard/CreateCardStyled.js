@@ -1,13 +1,14 @@
 import styled from "styled-components";
 
 export const CardForm = styled.form`
-  margin-top: 20px;
+  margin-top: 10px;
+  margin-left: 18px;
   padding: 20px;
   border-radius: 5px;
 `;
 
 export const H3 = styled.h3`
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 `;
 
 export const Label = styled.label`
@@ -16,7 +17,7 @@ export const Label = styled.label`
 `;
 
 export const Input = styled.input`
-  width: 100%;
+  width: 250px;
   padding: 8px;
   margin-bottom: 10px;
   border: 1px solid #ccc;
@@ -24,7 +25,7 @@ export const Input = styled.input`
 `;
 
 export const Textarea = styled.textarea`
-  width: 100%;
+  width: 250px;
   padding: 8px;
   margin-bottom: 10px;
   border: 1px solid #ccc;

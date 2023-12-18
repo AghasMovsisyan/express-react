@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Br, CardForm, CreateCardButton, H3, Input, Label, Textarea } from "./CreateCardStyled";
+import axios from "axios";
 
-
-function CreateCard () {
+function CreateCard() {
   const { id: userId } = useParams();
   const [cards, setCards] = useState([]);
   const [cardData, setCardData] = useState({
     title: '',
     description: '',
+    size: '',
+    image: null,
   });
 
   const handleInputChange = (e) => {
@@ -19,11 +21,19 @@ function CreateCard () {
     }));
   };
 
+  const handleImageChange = (e) => {
+    const imageFile = e.target.files[0];
+    setCardData((prevData) => ({
+      ...prevData,
+      image: imageFile,
+    }));
+  };
+
   const fetchUserCards = async () => {
     try {
-      const response = await fetch(`/user-cards/${userId}`);
-      if (response.ok) {
-        const data = await response.json();
+      const response = await axios.get(`/user-cards/${userId}`);
+      if (response.status === 200) {
+        const data = response.data;
         setCards(data.cards);
       } else {
         console.error('Failed to fetch cards');
@@ -32,26 +42,31 @@ function CreateCard () {
       console.error('Error fetching cards:', error);
     }
   };
+
   const handleCardSubmission = async (e) => {
     e.preventDefault();
+
     try {
-      const response = await fetch('/create-card', {
-        method: 'POST',
+      const formData = new FormData();
+      formData.append('title', cardData.title);
+      formData.append('description', cardData.description);
+      formData.append('size', cardData.size )
+      formData.append('userId', userId);
+      formData.append('image', cardData.image)
+
+      const response = await axios.post('/create-card', formData, {
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'multipart/form-data',
         },
-        body: JSON.stringify({
-          title: cardData.title,
-          description: cardData.description,
-          userId: userId,
-        }),
       });
 
-      if (response.ok) {
+      if (response.status === 201) {
         console.log('Card created successfully');
         setCardData({
           title: '',
           description: '',
+          size: '',
+          image: null,
         });
         fetchUserCards();
       } else {
@@ -74,6 +89,14 @@ function CreateCard () {
          onChange={handleInputChange}
        />
        <Br />
+       <Label htmlFor="size">Size:</Label>
+       <Input
+         id="size"
+         name="size"
+         value={cardData.size}
+         onChange={handleInputChange}
+       ></Input>
+       <Br />
        <Label htmlFor="description">Description:</Label>
        <Textarea
          id="description"
@@ -82,11 +105,18 @@ function CreateCard () {
          onChange={handleInputChange}
        ></Textarea>
        <Br />
-       <CreateCardButton type="submit">Create Card</CreateCardButton  >
+       <Label htmlFor="image">Image:</Label>
+       <Input
+         type="file"
+         id="image"
+         name="image"
+         accept="image/*"
+         onChange={handleImageChange}
+       />
+       <Br />
+       <CreateCardButton type="submit">Create Card</CreateCardButton>
      </CardForm>
-  )
-
-
+  );
 }
 
 export default CreateCard;

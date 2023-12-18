@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {  Li, TabButton, Tabs, Ul } from './UserPageStyled';
+import {  Hr, Li, TabButton, Tabs, Ul } from './UserPageStyled';
 import UserCards from './UserCards/UserCards';
 import CreateCard from './CreateCard/CreateCard';
 import Navigation from './Navigation/Navigation';
@@ -21,19 +21,15 @@ function UserPage() {
           </Li>
         </Ul>
       </Tabs>
-      <hr></hr>
-      
-
+      <Hr></Hr>
+    
     {activeTab === 'createCard' && (
-    <CreateCard></CreateCard>
+      <CreateCard></CreateCard>
     )}
 
     {activeTab === 'userCards' && (
-      <div>
         <UserCards></UserCards>
-      </div>
     )}
-
     </div>
   );
 }

@@ -41,3 +41,7 @@ export const Tabs = styled.div`
 margin-top: 30px;
 margin-left: -10px
 `;
+
+export const Hr = styled.hr`
+margin: 0px 40px 0px 40px;
+`
